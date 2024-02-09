@@ -150,3 +150,30 @@ theorem problem_3 : ((p ∨ q) ∧ (p → r) ∧ (q → s)) → (r ∨ s) := by
   assumption
 
   done
+
+/- Checking the other HW problems
+-/
+
+variable (T V B S : Prop)
+
+example : (T ∨ V) ∧ (T → B) ∧ (¬ V → ((B ∧ S) ∨ T)) ∧ (¬ B → T) → B := by
+  assume h
+  eliminate h with htv h2
+  eliminate h2 with htb h3
+  eliminate h3 with hnv hnb
+
+  eliminate htv with ht hv
+
+  have hb := htb ht
+  assumption
+
+  /-Haven't finished this proof-/
+  done
+
+#truth_table (T ∧ B) → ¬ S
+
+#truth_table (A ∧ B) ∧ ¬ C ∧ ¬ (A ∨ C)
+
+#truth_table (¬(¬ A ∧ (¬ (B ∧ C) ∧ B))) ∨ ((¬(¬(B ∧ C)) ∨ (¬ (B ∧ C) ∧ B)))
+
+#truth_table A ∧ ¬ B ∧ C
