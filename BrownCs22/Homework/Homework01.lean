@@ -26,7 +26,9 @@ Some general guidelines, before we get started.
 -/
 
 theorem example_1 (p : Prop) : p → p → p := by
-  sorry
+  assume hp1
+  assume hp2
+  assumption
   done
 
 /-
@@ -67,7 +69,13 @@ will be very helpful here!
 
 @[autograded 3]
 theorem problem_1 : (p ∧ q) ∧ (r ∧ s) → (p ∧ r) := by
-  sorry
+  assume hpqrs
+  eliminate hpqrs with hpq hrs
+  eliminate hpq with hp hq
+  eliminate hrs with hr hs
+  split_goal
+  {assumption}
+  {assumption}
   done
 
 
@@ -93,7 +101,11 @@ Again, your task is to fill in the `sorry` below to prove this statement.
 
 @[autograded 3]
 theorem problem_2 : (p → ¬ q) → ¬ (p ∧ q) := by
-  sorry
+  assume hpnq
+  assume hpq
+  eliminate hpq with hp hq
+  have hnp := hpnq hp
+  contradiction
   done
 
 
@@ -124,5 +136,17 @@ Your task: translate this argument to Lean.
 
 @[autograded 4]
 theorem problem_3 : ((p ∨ q) ∧ (p → r) ∧ (q → s)) → (r ∨ s) := by
-  sorry
+  assume hpqprqs
+  eliminate hpqprqs with hpq hprqs
+  eliminate hprqs with hpr hqs
+  eliminate hpq with hp hq
+
+  left
+  have hr := hpr hp
+  assumption
+
+  right
+  have hs := hqs hq
+  assumption
+
   done
