@@ -219,5 +219,4 @@ How to introduce a negation? This uses a technique called
 
 
 
-
 end Lecture04
