@@ -60,7 +60,27 @@ Then think about the last few homeworks; how do you prove an `↔` goal?
 
 @[autograded 4]
 theorem problem_1 : (A ∪ B) ∩ B = B := by
-  sorry
+  ext x
+  split_goal
+  {
+    assume h1
+    set_simplify
+    eliminate h1 with h11 h12
+    assumption
+  }
+
+  {
+    assume h2
+    set_simplify
+    split_goal
+    {
+      right
+      assumption
+    }
+    {
+      assumption
+    }
+  }
   done
 
 
@@ -136,11 +156,11 @@ It might help to plan out your steps on paper!
 
 @[autograded 4]
 theorem problem_2 : (Aᶜ \ B)ᶜ = A ∪ B := by
-  sorry
+  rewrite diff_eq
+  rewrite compl_inter
+  rewrite compl_compl
+  rewrite compl_compl
+  reflexivity
   done
-
-
-
-
 
 end HW3
