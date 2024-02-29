@@ -57,10 +57,6 @@ of these functions, and *prove* that these properties hold.
 How convenient: we just learned about a lot of function
 and relation properties in class :)
 
-
-
-
-
 A side note: in class, we said that functions and relations were
 sets of ordered pairs, defined by their *graph*:
 `f(x) = y` if and only if `(x, y) ∈ G(f)`.
@@ -115,12 +111,20 @@ Some tactics to remember:
 
 @[autograded 2]
 theorem problem_1 : Injective f := by
-  sorry
+  dsimp Injective
+  dsimp f
+  fix a1 a2
+  assume hp
+  linarith
   done
 
 @[autograded 2]
 theorem problem_2 : Surjective f := by
-  sorry
+  dsimp Surjective
+  dsimp f
+  fix b
+  use (b - 6) / 2
+  linarith
   done
 
 
@@ -167,7 +171,10 @@ Let's show that this relation is reflexive. Like before,
 
 @[autograded 2]
 theorem problem_3 : Reflexive R := by
-  sorry
+  dsimp Reflexive
+  fix x
+  dsimp R
+  reflexivity
   done
 
 
@@ -200,8 +207,13 @@ this is the same concept showing up in a different context.)
 
 @[autograded 3]
 theorem problem_4 : Transitive R := by
-  sorry
+  dsimp Transitive
+  fix x y z
+  assume hxy hyz
+  eliminate hxy with x_1 hy_1
+  eliminate hyz with y_2 hz_1
+  existsi x_1 * y_2
+  linear_combination y_2 * hy_1 + hz_1
   done
-
 
 end HW4
