@@ -66,9 +66,17 @@ and the last expression (on the right hand side of the final line) is `5`.
 
 @[autograded 4]
 theorem problem_1 : ∀ n, 2 ^ n ≥ n + 1 := by
-  sorry
+  basic_induction
+  {numbers}
+  { fix n
+    assume h_ind
+    calc
+      2^(n + 1) = 2^n * 2 := by linarith
+      _ ≥ (n + 1) + 1 := by linarith
+    }
   done
 
+-- IDK IF THIS IS RIGHT
 
 /-
 
@@ -82,5 +90,20 @@ Now we'll prove that every number is either even or odd, phrased in terms of
 
 @[autograded 4]
 theorem problem_2 : ∀ n : ℕ, 2 ∣ n ∨ 2 ∣ n + 1 := by
-  sorry
+  basic_induction
+  { left
+    existsi 0
+    numbers}
+  { fix n
+    assume h_ind
+    eliminate h_ind with h1 h2
+    { right
+      dsimp dvd
+      eliminate h1 with k h1
+      existsi k + 1
+      linarith
+    }
+    { left
+      assumption}
+    }
   done
